@@ -3,34 +3,14 @@
 
 import * as React from 'react'
 // 🐨 you'll also need to get the fetchPokemon function from ../pokemon:
-import {PokemonDataView, fetchPokemon, PokemonErrorBoundary} from '../pokemon'
+import {PokemonDataView, fetchPokemon, PokemonErrorBoundary, PokemonInfoFallback} from '../pokemon'
+import { createResource } from 'utils';
 
 // 💰 use it like this: fetchPokemon(pokemonName).then(handleSuccess, handleFailure)
 
 // 🐨 create a variable called "pokemon" (using let)
 
 // 💣 delete this now...
-
-const createResource = (asyncCall) => {
-  let status = 'pending';
-  let result, error;
-
-  let promise = asyncCall.then((data) => {
-    result = data;
-    status = 'resolved'
-  }, rejected => {
-    error = rejected;
-    status = 'rejected'
-  })
-
-  return {
-    read: () => {
-      if (status === 'pending') throw promise;
-      if (status === 'resolved') return result;
-      if (status === 'rejected') throw error;
-    }
-  }
-}
 
 
 
@@ -66,7 +46,7 @@ function App() {
     <div className="pokemon-info-app">
       <div className="pokemon-info">
         <PokemonErrorBoundary>
-          <React.Suspense fallback={<div>Loading Pokemon...</div>}>
+          <React.Suspense fallback={<PokemonInfoFallback name="Pikachu" />}>
             <PokemonInfo />
           </React.Suspense>
         </PokemonErrorBoundary>
