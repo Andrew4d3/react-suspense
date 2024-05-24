@@ -1,5 +1,6 @@
 // useTransition for improved loading states
-// http://localhost:3000/isolated/final/03.js
+// 💯 use css transitions
+// http://localhost:3000/isolated/final/03.extra-1.js
 
 import * as React from 'react'
 import {
@@ -56,7 +57,7 @@ function App() {
     <div className="pokemon-info-app">
       <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
       <hr />
-      <div style={{opacity: isPending ? 0.6 : 1}} className="pokemon-info">
+      <div className={`pokemon-info ${isPending ? 'pokemon-loading' : ''}`}>
         {pokemonResource ? (
           <PokemonErrorBoundary
             onReset={handleReset}
